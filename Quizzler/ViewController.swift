@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     let allQuestions = QuestionBank()
     var pickedAnswer : Bool = false
     var questionNumber : Int = 0
-    
+   
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet var progressBar: UIView!
@@ -38,8 +38,11 @@ class ViewController: UIViewController {
         }
         checkAnswer()
 
-        questionNumber += 1
-        questionLabel.text = allQuestions.list[questionNumber].questionText
+       
+        if questionNumber < allQuestions.list.count - 1  {
+            questionNumber += 1
+            questionLabel.text = allQuestions.list[questionNumber].questionText
+        }
         
     }
     
