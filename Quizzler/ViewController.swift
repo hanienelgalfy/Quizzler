@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     //Place your instance variables here
     
+    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
     let allQuestions = QuestionBank()
     var pickedAnswer : Bool = false
     var questionNumber : Int = 0
@@ -46,28 +47,33 @@ class ViewController: UIViewController {
     func updateUI() {
         scoreLabel.text = "Score: \(score)"
         progressLabel.text = "\(questionNumber + 1 ) / \(allQuestions.list.count)"
+       
+        widthConstraint.constant = (view.frame.size.width / CGFloat (allQuestions.list.count)) * CGFloat (questionNumber + 1)
         
-        progressBar.frame.size.width =  view.frame.size.width * CGFloat (questionNumber + 1 ) / CGFloat(allQuestions.list.count) //NOT WORKING
 
         
     }
     
 
-    func nextQuestion() {
+     func nextQuestion() {
         
-        if questionNumber < allQuestions.list.count{
+        if questionNumber < allQuestions.list.count {
             questionLabel.text = allQuestions.list[questionNumber].questionText
             updateUI()
         }
-        else{
-            let alert = UIAlertController(title: "Awesome", message: "You have finished all the questions, do you want to start over?", preferredStyle: .alert)
-            
-            let restartAction = UIAlertAction(title: "Restart", style: .default) { (UIAlertAction) in
-                self.startOver()
-            }
-            alert.addAction(restartAction)
-            present(alert, animated: true, completion: nil)
+        else {
+            self.perform(#selector(presentAlert), with: self, afterDelay: 1.0)
         }
+    }
+    
+    @objc func presentAlert(){
+        let alert = UIAlertController(title: "Awesome", message: "You have finished all the questions, do you want to start over?", preferredStyle: .alert)
+        
+        let restartAction = UIAlertAction(title: "Restart", style: .default) { (UIAlertAction) in
+            self.startOver()
+        }
+        alert.addAction(restartAction)
+        present(alert, animated: true, completion: nil)
     }
     
     
@@ -76,12 +82,12 @@ class ViewController: UIViewController {
         
         if correctAnswer == pickedAnswer {
             score += 1
-            print ("You got it!")
+            ProgressHUD.showSuccess("YAAAY CORRECT!")
         }
-        else {
+        else{
             score -= 1
-            print("wrong!")
-        }
+            ProgressHUD.showError("Wrong :( ")
+                    }
     }
     
     

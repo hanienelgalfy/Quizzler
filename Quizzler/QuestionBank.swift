@@ -13,9 +13,9 @@ class QuestionBank {
 
     init () {
         
-        list.append(Question(text: "Ahmed amar?" , correctAnswer: true))
-        list.append(Question(text: "Hanien gamela?" , correctAnswer: true))
-        list.append(Question(text: "Ahmed gazma?" , correctAnswer: false))
+        list.append(Question(text: "Valentine's day is banned in Saudi Arabia" , correctAnswer: true))
+        list.append(Question(text: "Approximately one quarter of human bones are in the feet" , correctAnswer: true))
+        list.append(Question(text: "In London, UK, if you happen to die in the House of Parliament, you are technically entitled to a state funeral, because the building is considered too sacred a place" , correctAnswer: false))
     }
 
 }
